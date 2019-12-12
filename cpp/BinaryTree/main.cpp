@@ -21,5 +21,9 @@ int main()
     tree.postorder();
     cout << endl;
 
+    cout << boolalpha;
+    cout << "Found 11?: " << tree.find(11) << endl;
+    cout << "Found 55?: " << tree.find(55) << endl;
+
     return 0;
 }

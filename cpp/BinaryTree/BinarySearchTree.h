@@ -22,6 +22,7 @@ public:
     BinarySearchTree();
     ~BinarySearchTree();
 
+    bool find(const Type& value);
     void insert(const Type& value);
     void clear();
 
@@ -42,6 +43,7 @@ private:
     void inorder(Node<Type> * r);
     void preorder(Node<Type> * r);
     void postorder(Node<Type> * r);
+    bool find(Node<Type>*& r, const Type& value);
 
     void insert(Node<Type>*& r, const Type& value);
     void destroyTree(Node<Type> * r);
@@ -147,6 +149,30 @@ void BinarySearchTree<Type>::postorder(Node<Type> * r)
     postorder(r->left);
     postorder(r->right);
     std::cout << r->item << std::endl;
+}
+
+template <class Type>
+bool BinarySearchTree<Type>::find(const Type& value)
+{
+    return find(root, value);
+}
+
+template <class Type>
+bool BinarySearchTree<Type>::find(Node<Type>*& r, const Type& value)
+{
+    if (r == nullptr)
+    {
+        return false;
+    }
+    else if (r->item == value)
+    {
+        return true;
+    }
+
+    bool left = find(r->left, value);
+    bool right = find(r->right, value);
+
+    return left || right;
 }
 
 #endif      // BINARYSEARCHTREE_H
