@@ -1,3 +1,6 @@
+/// @author Benjamin Alcocer
+/// github: https://github.com/benalcocer
+
 #include <iostream>
 #include "LinkedList.h"
 

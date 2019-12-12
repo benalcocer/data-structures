@@ -1,4 +1,5 @@
 /// @author Benjamin Alcocer
+/// github: https://github.com/benalcocer
 
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
