@@ -31,19 +31,16 @@ public:
         Node * current;
     };
 
-    // functions
+    // construct/copy/destroy
     LinkedList();
     LinkedList(const LinkedList<Type>& copy);
     ~LinkedList();
     const LinkedList& operator=(const LinkedList& rhs);
-    
+
     void push_front(Type value);
     void push_back(Type value);
-    
-    size_t size() const
-    {
-        return length;
-    }
+    void pop_front();
+    void pop_back();
 
     Type front() const
     {
@@ -55,13 +52,17 @@ public:
     }
 
     void reverse();
-
-    void pop_front();
-    void pop_back();
     void clear();
 
+    // iterators
     LLIterator begin();
     LLIterator end();
+
+    // capacity
+    size_t size() const
+    {
+        return length;
+    }
 
 private:
     Node * head;
@@ -84,19 +85,28 @@ typename LinkedList<Type>::LLIterator LinkedList<Type>::end()
 }
 
 
-// LLIterator class function definitions----------------------------------------
+// LLIterator class functions
+///-----------------------------------------------------------------------------
+/// @brief LLIterator()
+///-----------------------------------------------------------------------------
 template <class Type>
 LinkedList<Type>::LLIterator::LLIterator()
 {
     current = nullptr;
 }
 
+///-----------------------------------------------------------------------------
+/// @brief LLIterator(Node *)
+///-----------------------------------------------------------------------------
 template <class Type>
 LinkedList<Type>::LLIterator::LLIterator(LinkedList<Type>::Node * ptr)
 {
     current = ptr;
 }
 
+///-----------------------------------------------------------------------------
+/// @brief LLIterator::operator++()
+///-----------------------------------------------------------------------------
 template <class Type>
 typename LinkedList<Type>::LLIterator LinkedList<Type>::LLIterator::operator++(int)
 {
@@ -107,27 +117,58 @@ typename LinkedList<Type>::LLIterator LinkedList<Type>::LLIterator::operator++(i
     return *this;
 }
 
+///-----------------------------------------------------------------------------
+/// @brief LLIterator::operator*()
+///-----------------------------------------------------------------------------
 template <class Type>
 Type LinkedList<Type>::LLIterator::operator*()
 {
     return (current == NULL) ? Type() : current->item;
 }
 
-
+///-----------------------------------------------------------------------------
+/// @brief LLIterator::operator==()
+///-----------------------------------------------------------------------------
 template <class Type>
 bool LinkedList<Type>::LLIterator::operator==(const LinkedList<Type>::LLIterator& rhs)
 {
     return current == rhs.current;
 }
 
+///-----------------------------------------------------------------------------
+/// @brief LLIterator::operator!=()
+///-----------------------------------------------------------------------------
 template <class Type>
 bool LinkedList<Type>::LLIterator::operator!=(const LinkedList<Type>::LLIterator& rhs)
 {
     return !(*this == rhs);
+}   // LLIterator class functions
+
+
+// LinkedList class functions
+///-----------------------------------------------------------------------------
+/// @brief LinkedList Default Constructor
+///-----------------------------------------------------------------------------
+template <class Type>
+LinkedList<Type>::LinkedList()
+{
+    head = nullptr;
+    tail = nullptr;
+    length = 0;
 }
 
-//------------------------------------------------------------------------------
+///-----------------------------------------------------------------------------
+/// @brief LinkedList Copy Constructor
+///-----------------------------------------------------------------------------
+template <class Type>
+LinkedList<Type>::LinkedList(const LinkedList<Type>& copy)
+{
+    *this = copy;
+}
 
+///-----------------------------------------------------------------------------
+/// @brief LinkedList assignment operator (=) overload
+///-----------------------------------------------------------------------------
 template <class Type>
 const LinkedList<Type>& LinkedList<Type>::operator=(const LinkedList<Type>& rhs)
 {
@@ -146,26 +187,18 @@ const LinkedList<Type>& LinkedList<Type>::operator=(const LinkedList<Type>& rhs)
     return *this;
 }
 
-template <class Type>
-LinkedList<Type>::LinkedList()
-{
-    head = nullptr;
-    tail = nullptr;
-    length = 0;
-}
-
-template <class Type>
-LinkedList<Type>::LinkedList(const LinkedList<Type>& copy)
-{
-    *this = copy;
-}
-
+///-----------------------------------------------------------------------------
+/// @brief LinkedList Destructor
+///-----------------------------------------------------------------------------
 template <class Type>
 LinkedList<Type>::~LinkedList()
 {
     clear();
 }
 
+///-----------------------------------------------------------------------------
+/// @brief LinkedList push_front
+///-----------------------------------------------------------------------------
 template <class Type>
 void LinkedList<Type>::push_front(Type value)
 {
@@ -184,6 +217,9 @@ void LinkedList<Type>::push_front(Type value)
     length++;
 }
 
+///-----------------------------------------------------------------------------
+/// @brief LinkedList push_back
+///-----------------------------------------------------------------------------
 template <class Type>
 void LinkedList<Type>::push_back(Type value)
 {
@@ -206,6 +242,9 @@ void LinkedList<Type>::push_back(Type value)
     length++;
 }
 
+///-----------------------------------------------------------------------------
+/// @brief LinkedList pop_front
+///-----------------------------------------------------------------------------
 template <class Type>
 void LinkedList<Type>::pop_front()
 {
@@ -217,6 +256,9 @@ void LinkedList<Type>::pop_front()
     length--;
 }
 
+///-----------------------------------------------------------------------------
+/// @brief LinkedList pop_back
+///-----------------------------------------------------------------------------
 template <class Type>
 void LinkedList<Type>::pop_back()
 {
@@ -228,6 +270,9 @@ void LinkedList<Type>::pop_back()
     length--;
 }
 
+///-----------------------------------------------------------------------------
+/// @brief LinkedList reverse
+///-----------------------------------------------------------------------------
 template <class Type>
 void LinkedList<Type>::reverse()
 {
@@ -256,6 +301,9 @@ void LinkedList<Type>::reverse()
     }
 }
 
+///-----------------------------------------------------------------------------
+/// @brief LinkedList clear
+///-----------------------------------------------------------------------------
 template <class Type>
 void LinkedList<Type>::clear()
 {
@@ -270,6 +318,6 @@ void LinkedList<Type>::clear()
     head = nullptr;
     tail = nullptr;
     length = 0;
-}
+}   // LinkedList class functions
 
 #endif      // LINKEDLIST_H
