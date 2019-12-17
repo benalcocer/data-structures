@@ -1,3 +1,6 @@
+# Introduction
+The vertex.h file is an implementation of an adjacency list. This Computer Science assignment that follows is written in main.cpp that accomplishes the ICPC style problem written by my professor Jimi Andro-Vasko. It showcases a case where an adjacency list can be used. Another example is in my "icpc" repository for Savage Pokemon. Check it out here: https://github.com/benalcocer/icpc/
+
 # Description CS302 Assignment 8, by Jimi Andro-Vasko
  
 Morty!!! I finally did it! I discovered a way to time travel, and no Morty, I’m not using that DeLorean or whatever was used in that time traveling movie...time machine right? That’s what it’s called? Time machine? The one where they go to the future or to the past orRick I don’t think that’s the right mov there’s not time for that Morty! We need to go now! I found a way to use my portal device to go through wormholes that takes us to the same universe but in a different point in time, we just have to keep taking the same set of wormholes to go back in the past! And yes we are doing this instead of inter-dimensional cable...
