@@ -2,63 +2,75 @@
 /// github: https://github.com/benalcocer
 
 #include <iostream>
+#include <vector>
+#include <string>
 #include "LinkedList.h"
 
 using namespace std;
 
-template <class Type>
-void sizeOut(const LinkedList<Type>& list)
+void sizeOut(int size)
 {
-    cout << "Size: " << list.size() << endl;
+    cout << "Size: " << size << endl;
 }
 
-int main()
+template <class T>
+void test(const vector<T>& inputData)
 {
-    LinkedList<int> list;
-
-    list.push_back(10);
-    list.push_back(9);
-    list.push_back(8);
-    list.push_back(7);
-    list.push_front(1);
+    if (inputData.empty())
+    {
+        return;
+    }
+    
+    LinkedList<T> list;
+    for (unsigned int i = 0; i < inputData.size(); ++i)
+    {
+        list.push_back(inputData[i]);
+    }
 
     // Output list
     cout << "Original list...\n";
-    for (auto it = list.begin(); it != list.end(); it++)
-    {
-        cout << *it << " ";
-    }
-    cout << endl;
-    sizeOut(list);
+    list.printList();
+    sizeOut(list.size());
     cout << endl;
 
     // Reverse list
     cout << "Reverse original list...\n";
     list.reverse();
-    for (auto it = list.begin(); it != list.end(); it++)
-    {
-        cout << *it << " ";
-    }
-    cout << endl;
-    sizeOut(list);
+    list.printList();
+    sizeOut(list.size());
     cout << endl;
 
-    // Clear and try to output
-    cout << "Clear list and attempt to output...\n";
-    LinkedList<int> copy(list);
-    list.clear();
-    for (auto it = list.begin(); it != list.end(); it++)
-    {
-        cout << *it << endl;
-    }
-    sizeOut(list);
+    // Copy list and attempt to output
+    cout << "Copy list and attempt to output...\n";
+    LinkedList<T> copy = list;
+    cout << "Original: ";
+    list.printList();
+    cout << "Copy: ";
+    copy.printList();
     cout << endl;
-
-    // Reset to original list and print front and back
-    cout << "Reset to original list and print front and back...\n";
-    list = copy;
+    
+    
+    cout << "Reverse copy and display...\n";
+    copy.reverse();
+    cout << "Original: ";
+    list.printList();
+    cout << "Copy: ";
+    copy.printList();
+    cout << endl;
+    
     cout << "Front of list: " << list.front() << endl;
     cout << "Back of list:  " << list.back() << endl;
+    cout << "Front of copy: " << copy.front() << endl;
+    cout << "Back of copy:  " << copy.back() << endl;
+    cout << "END OF TEST FUNCTION CALL-----------------------\n";
+}
+
+int main()
+{
+    vector<int> int_data = {1, 10, 9, 8, 7};
+    vector<string> string_data = {"ben", "benji", "Benjamin", "benal", "GITHUB"};
+    test(int_data);
+    test(string_data);
 
     return 0;
 }

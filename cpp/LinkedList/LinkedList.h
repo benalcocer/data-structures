@@ -53,6 +53,7 @@ public:
 
     void reverse();
     void clear();
+    void printList();
 
     // iterators
     LLIterator begin();
@@ -163,6 +164,9 @@ LinkedList<Type>::LinkedList()
 template <class Type>
 LinkedList<Type>::LinkedList(const LinkedList<Type>& copy)
 {
+    head = nullptr;
+    tail = nullptr;
+    length = 0;
     *this = copy;
 }
 
@@ -179,11 +183,10 @@ const LinkedList<Type>& LinkedList<Type>::operator=(const LinkedList<Type>& rhs)
         Node *ptr = rhs.head;
         while (ptr != nullptr)
         {
-            push_front(ptr->item);
+            push_back(ptr->item);
             ptr = ptr->link;
         }
     }
-
     return *this;
 }
 
@@ -207,6 +210,11 @@ void LinkedList<Type>::push_front(Type value)
     newNode->item = value;
     newNode->link = head;
     newNode->prev = nullptr;
+    if (head != nullptr)
+    {
+        head->prev = newNode;
+    }
+    
     head = newNode;
 
     if (head->link == nullptr)
@@ -276,28 +284,19 @@ void LinkedList<Type>::pop_back()
 template <class Type>
 void LinkedList<Type>::reverse()
 {
-    if (length == 1 || length == 0)
+    Node * curr = head;
+    Node * next;
+    
+    head = tail;
+    tail = curr;
+    
+    while (curr != nullptr)
     {
-        return;
-    }
-
-    const size_t MIDPOINT = length / 2;
-    size_t position = 0;
-    Node * front = head;
-    Node * back = tail;
-    Type buffer;
-
-    while (position < MIDPOINT)
-    {
-        // swap
-        buffer = front->item;
-        front->item = back->item;
-        back->item = buffer;
-
-        // traverse
-        front = front->link;
-        back = back->prev;
-        position++;
+        // prev and link
+        next = curr->link;
+        curr->link = curr->prev;
+        curr->prev = next;
+        curr = next;
     }
 }
 
@@ -318,6 +317,17 @@ void LinkedList<Type>::clear()
     head = nullptr;
     tail = nullptr;
     length = 0;
+}
+
+template <class Type>
+void LinkedList<Type>::printList()
+{
+    for (auto it = this->begin(); it != this->end(); it++)
+    {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
 }   // LinkedList class functions
+
 
 #endif      // LINKEDLIST_H
